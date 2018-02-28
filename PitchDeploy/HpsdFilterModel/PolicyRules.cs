@@ -53,7 +53,7 @@ namespace PitchDeploy.HpsdFilterModel
     public class ObjectReleaseReplaceRule
     {
         public string Condition_ProducingFederate { get; set; }
-        public string Condition_InteractionClass { get; set; }
+        public string Condition_ObjectClass { get; set; }
         public string Condition_InstanceID { get; set; }
         public List<string> Release_Attribute { get; set; }
         public string RuleName { get; set; }
@@ -64,7 +64,7 @@ namespace PitchDeploy.HpsdFilterModel
                 new XAttribute("name", RuleName),
                 new XElement("condition",
                     new XElement("producingFederate", Condition_ProducingFederate),
-                    new XElement("objectClass", Condition_InteractionClass),
+                    new XElement("objectClass", Condition_ObjectClass),
                     new XElement("instanceID", Condition_InstanceID))
                 );
             XElement release = new XElement("release");

@@ -29,8 +29,8 @@ namespace PitchDeploy
                 ModifiedDate = deploy.ConfigMgmt.Changed[deploy.ConfigMgmt.Changed.Count - 1].date,
                 Status = "",
                 Description = deploy.ConfigMgmt.Description
-            };
-            // No POC information
+            }; // No POC information
+
             hpsdPolicy.PolicyIdentification = polID;
             // =======================================
 
@@ -68,8 +68,68 @@ namespace PitchDeploy
             hpsdPolicy.FomInformation = fominfo;
             // =====================================================================================
 
+            // Federates <--->  Export module
+            Federates feds = new Federates();
 
+            // List of federates in Export module
+            ModuleExport expModule = (ModuleExport)findModule(component.Modules, Enums.ModuleType.federation);
+            foreach (Source source in expModule.Sources)
+                feds.Federate.Add(source.FederateName);
 
+            hpsdPolicy.Federates = feds;
+            // =====================================================================================
+
+            // PolicyRules <----> Export module
+            PolicyRules rule = new PolicyRules();
+            int ruleNumber = 0;
+
+            // Status message - session name = federateName
+            SessionStatusReleaseRule sess = new SessionStatusReleaseRule
+            {
+                Condition_SessionName = system.FederateName,
+                RuleName = ruleNumber++.ToString()
+            };
+            rule.SessionStatus.Add(sess);
+
+            // Object update/create
+            foreach (Source source in expModule.Sources)
+            {
+                
+                string federateName = source.FederateName;
+                string entityID = "";
+                if (source.SourceType == Source.Type.Federate)
+                    entityID = "*";
+                else
+                    entityID = source.EntityId;
+
+                foreach(HlaObject hlaObj in source.Objects)
+                {
+                    ObjectReleaseReplaceRule obj = new ObjectReleaseReplaceRule()
+                    {
+                        Condition_ProducingFederate = federateName,
+                        Condition_InstanceID = entityID,
+                        RuleName = ruleNumber++.ToString(),
+                        Condition_ObjectClass = hlaObj.ObjectClassName.NoHlaRoot()
+                    };
+                    foreach (HlaAttribute attrib in hlaObj.Attributes)
+                        obj.Release_Attribute.Add(attrib.AttributeName);
+                    rule.ObjectRelease.Add(obj);
+                }
+
+                foreach (HlaInteraction hlaInt in source.Interactions)
+                {
+                    InteractionReleaseReplaceRule intr = new InteractionReleaseReplaceRule()
+                    {
+                        Condition_ProducingFederate = federateName,
+                        RuleName = ruleNumber++.ToString(),
+                        Condition_InteractionClass = hlaInt.InteractionClassName.NoHlaRoot()
+                    };
+                    foreach (HlaParameter para in hlaInt.Parameters)
+                        intr.Release_Parameter.Add(para.ParameterName);
+                    rule.InteractionRelease.Add(intr);
+                }
+            }
+            return rule.ToHPSD();
         }
 
         private static IModule findModule(List<IModule> modules, Enums.ModuleType moduleType)
