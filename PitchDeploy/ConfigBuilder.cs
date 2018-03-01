@@ -1,5 +1,6 @@
 ﻿using FPDL.Common;
 using FPDL.Deploy;
+using PitchDeploy.HlaTreeWalker;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,9 @@ namespace PitchDeploy
             ModuleExport export = (ModuleExport)findModule(component.Modules, Enums.ModuleType.export);
             ModuleExtension extension = (ModuleExtension)findModule(component.Modules, Enums.ModuleType.extension);
             ModuleOsp[] osp = (ModuleOsp[])findModules(component.Modules, Enums.ModuleType.osp);
+
+            // Create an HlaObject tree to use when defining attribute lists
+            HlaObjectNode HlaObjectTree = TreeReader.CreateTree(Properties.Resources.HlaObjectFile);
             
             StringBuilder sb = new StringBuilder();
 
@@ -77,6 +81,8 @@ namespace PitchDeploy
             sb.AppendLine("A.disableRequest=false");
             sb.AppendLine("A.logicalTimeFactoryClassName=");
             sb.AppendLine("A.conveyProducingFederate=true");
+
+            // If this is a High proxy then this is the Export Policy list, otherwise the Import Policy
             sb.AppendLine("A.objects=");
             sb.AppendLine("A.interactions=");
             sb.AppendLine();
@@ -107,6 +113,7 @@ namespace PitchDeploy
             sb.AppendLine("B.disableRequest=false");
             sb.AppendLine("B.logicalTimeFactoryClassName=");
             sb.AppendLine("B.conveyProducingFederate=true");
+
             sb.AppendLine("B.objects=");
             sb.AppendLine("B.interactions=");
 
