@@ -4,6 +4,7 @@ using PitchDeploy.HlaTreeWalker;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace PitchDeploy
@@ -20,7 +21,7 @@ namespace PitchDeploy
             ModuleOsp[] osp = (ModuleOsp[])findModules(component.Modules, Enums.ModuleType.osp);
 
             // Create an HlaObject tree to use when defining attribute lists
-            HlaObjectNode HlaObjectTree = TreeReader.CreateTree(Properties.Resources.HlaObjectFile);
+            HlaObjectNode hlaObjectTree = TreeReader.CreateTree(Properties.Resources.HlaObjectFile);
             
             StringBuilder sb = new StringBuilder();
 
@@ -61,14 +62,14 @@ namespace PitchDeploy
                     sb.AppendLine("A.profile=B");
                     break;
             }
-            sb.AppendLine("A.configurationType=");  // From extensions
+            sb.AppendLine("A.configurationType=" + extension.Parameters["configurationType"]);
             sb.AppendLine("A.host=" + federation.RTI.CrcAddress);
             sb.AppendLine("A.port=" + federation.RTI.CrcPortNumber);
             sb.AppendLine("A.designator=");
             sb.AppendLine("A.federation=" + federation.FederationName);
             sb.AppendLine("A.type=" + deploy.Systems[0].SystemType.ToString());
             sb.AppendLine("A.name=" + federation.FederateName);
-            sb.AppendLine("A.create="); // From extensions
+            sb.AppendLine("A.create=" + extension.Parameters["create"]);
             sb.Append("A.evolvedFomModules=");
             for (int i = 0; i < federation.RTI.FomFile.Count; i++)
             {
@@ -83,8 +84,15 @@ namespace PitchDeploy
             sb.AppendLine("A.conveyProducingFederate=true");
 
             // If this is a High proxy then this is the Export Policy list, otherwise the Import Policy
-            sb.AppendLine("A.objects=");
-            sb.AppendLine("A.interactions=");
+            string result = (component.ComponentName.ToUpper().Contains("HIGH")) ?
+                    string.Join("; ", ListBuilder.ObjectList(export, hlaObjectTree)) :
+                    string.Join("; ", ListBuilder.ObjectList(import, hlaObjectTree));
+            sb.AppendLine("A.objects=" + result);
+            // same idea for interactions
+            result = (component.ComponentName.ToUpper().Contains("HIGH")) ?
+                    string.Join("; ", ListBuilder.ObjectList(export, hlaObjectTree)) :
+                    string.Join("; ", ListBuilder.ObjectList(import, hlaObjectTree));
+            sb.AppendLine("A.interactions=" + result);
             sb.AppendLine();
 
             // B Side -- Always connected to OSP
@@ -100,7 +108,7 @@ namespace PitchDeploy
             sb.AppendLine("B.federation=" + component.ComponentName);
             sb.AppendLine("B.type=" + deploy.Systems[0].SystemType.ToString());
             sb.AppendLine("B.name=" + federation.FederateName);
-            sb.AppendLine("B.create="); // From extensions
+            sb.AppendLine("B.create=" + extension.Parameters["create"]); 
             sb.Append("B.evolvedFomModules=");
             for (int i = 0; i < federation.RTI.FomFile.Count; i++)
             {
@@ -114,8 +122,16 @@ namespace PitchDeploy
             sb.AppendLine("B.logicalTimeFactoryClassName=");
             sb.AppendLine("B.conveyProducingFederate=true");
 
-            sb.AppendLine("B.objects=");
-            sb.AppendLine("B.interactions=");
+            // If this is a High proxy then this is the Import Policy list, otherwise the Export Policy
+            result = (component.ComponentName.ToUpper().Contains("HIGH")) ?
+                    string.Join("; ", ListBuilder.ObjectList(import, hlaObjectTree)) :
+                    string.Join("; ", ListBuilder.ObjectList(export, hlaObjectTree));
+            sb.AppendLine("B.objects=" + result);
+            // same idea for interactions
+            result = (component.ComponentName.ToUpper().Contains("HIGH")) ?
+                    string.Join("; ", ListBuilder.ObjectList(import, hlaObjectTree)) :
+                    string.Join("; ", ListBuilder.ObjectList(export, hlaObjectTree));
+            sb.AppendLine("B.interactions=" + result);
 
             return sb.ToString();
         }

@@ -44,8 +44,8 @@ namespace PitchDeploy
                 return;
             }
 
-            XElement hpsdPolicy;
-            string extenderConfig;
+            XElement hpsdPolicy = null;
+            string extenderConfig = "";
             foreach (Component component in deploy.Systems[0].Components)
             {
                 // Look for Proxy component with the name we was given
@@ -59,6 +59,18 @@ namespace PitchDeploy
                 }
             }
 
+            // Output the two files, using the provided name
+            // Config
+            File.WriteAllText(name + ".settings", extenderConfig);
+            // Filter
+            hpsdPolicy.AddFirst(new XAttribute("xmlns", "http://www.pitchtechnologies.com/schemas/hpsd081"),
+                                new XAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"),
+                                new XAttribute("xsi:schemaLocation", "http://www.pitchtechnologies.com/schemas/hpsd081 HPSDpolicy081.xsd")
+                                );
+            XDocument doc = new XDocument(hpsdPolicy);
+            doc.Save(name + ".xml");
+
+            Console.WriteLine("Files generated and saved to CWD");
         }
     }
 }

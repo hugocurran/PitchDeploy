@@ -9,10 +9,8 @@ namespace PitchDeploy
 {
     internal static class ListBuilder
     {
-        internal static string[] objectList(IModule policy, HlaObjectNode hlaObjectTree)
+        internal static string[] ObjectList(IModule policy, HlaObjectNode hlaObjectTree)
         {
-            // objectList is a list of objectClassNames
-            //List<string> objectList = new List<string>();
             // objectListPartial has key=objectClassName, value=comma separated list of attributes
             Dictionary<string, List<string>> objectList = new Dictionary<string, List<string>>();
 
@@ -61,10 +59,52 @@ namespace PitchDeploy
             List<string> result = new List<string>();
             foreach(KeyValuePair<string, List<string>> obj in objectList)
             {
-
+                // General format is <fully qualified object class name>\: <attribute1>, <attribute2>
+                StringBuilder sb = new StringBuilder();
+                sb.AppendFormat("{0}\\: ", obj.Key);
+                for(int i = 0; i < obj.Value.Count; i++)
+                {
+                    if (i < obj.Value.Count + 1)
+                        sb.AppendFormat("{0}, ", obj.Value[i]);
+                    else
+                        sb.AppendFormat("{0}", obj.Value[i]);
+                }
             }
+            return result.ToArray();
+        }
 
-            return objectList.ToArray();
+        internal static string[] InteractionList(IModule policy, HlaObjectNode hlaObjectTree)
+        {
+            // interactionList is a simple list of fully qualified interaction names
+           List<string> interactionList = new List<string>();
+
+            // Logic: We need to get a list of interactions (no parameters):
+
+            if (policy.GetType() == typeof(ModuleExport))
+            {
+                ModuleExport exportPolicy = (ModuleExport)policy;
+                foreach (Source source in exportPolicy.Sources)
+                {
+                    // Find the interactons, add if not already there
+                    foreach (HlaInteraction inter in source.Interactions)
+                    {
+                        if (!interactionList.Contains(inter.InteractionClassName))
+                            interactionList.Add(inter.InteractionClassName);
+                    }
+                }
+            }
+            else
+            {
+                ModuleImport importPolicy = (ModuleImport)policy;
+                // Find the interactons, add if not already there
+                foreach (HlaInteraction inter in importPolicy.Interactions)
+                {
+                    if (!interactionList.Contains(inter.InteractionClassName))
+                        interactionList.Add(inter.InteractionClassName);
+                }
+            }
+            // Now we can build the string[]
+            return interactionList.ToArray();
         }
 
         // Add object with partial attribute list
