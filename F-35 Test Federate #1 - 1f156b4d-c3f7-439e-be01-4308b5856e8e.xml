@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Deploy xmlns="http://www.niteworks.net/fpdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <configMgmt>
+    <securityOwner>UK</securityOwner>
+    <securityClassification>Official</securityClassification>
+    <currentVersion>1.0</currentVersion>
+    <description>Initial Version</description>
+    <created>
+      <date>2018-03-06T19:13:54.9617609Z</date>
+      <author>peter</author>
+      <initialVersion>1.0</initialVersion>
+    </created>
+    <docReference>ec3b23e5-59ef-431a-b841-1c8e064941f0</docReference>
+    <changed>
+      <date>2018-03-06T19:13:54.9617609Z</date>
+      <author>peter</author>
+      <newVersion>1.0</newVersion>
+      <prevDocReference>ec3b23e5-59ef-431a-b841-1c8e064941f0</prevDocReference>
+      <changeNotes>Initial Version</changeNotes>
+    </changed>
+  </configMgmt>
+  <designReference>1f156b4d-c3f7-439e-be01-4308b5856e8e</designReference>
+  <system systemType="gateway">
+    <pattern patternReference="82bc3611-85ca-423e-9c81-a38596f92dda">MAK VR Exchange | PCEG based MTG</pattern>
+    <federateName>F-35 Test Federate #1</federateName>
+    <component componentID="657fcd01-59ef-4353-94fa-7fb5c392e4c5" componentType="proxy" componentName="High side proxy">
+      <interface>
+        <interfaceName>CSS Federation</interfaceName>
+        <ipAddress netPrefix="24">1.1.1.1</ipAddress>
+      </interface>
+      <interface>
+        <interfaceName>OSP</interfaceName>
+        <ipAddress netPrefix="24">20.20.20.31</ipAddress>
+      </interface>
+      <interface>
+        <interfaceName>Management</interfaceName>
+        <ipAddress netPrefix="24">10.10.10.31</ipAddress>
+      </interface>
+      <host>
+        <hostName></hostName>
+      </host>
+      <federation>
+        <federationName>CSS</federationName>
+        <federateName>F35</federateName>
+        <interfaceName>CSS Federation</interfaceName>
+        <rti>
+          <crcAddress addressType="ipAddress">1.1.1.1</crcAddress>
+          <crcPortNumber>8989</crcPortNumber>
+          <hlaSpec>HLA Evolved</hlaSpec>
+          <fom />
+        </rti>
+      </federation>
+      <osp>
+        <path>exportPath</path>
+        <protocol>WebLVC_ZMQ</protocol>
+        <outputPort>20.20.20.31:9000</outputPort>
+      </osp>
+      <osp>
+        <path>importPath</path>
+        <protocol>WebLVC_ZMQ</protocol>
+        <inputPort>20.20.20.192:8100</inputPort>
+      </osp>
+      <export>
+        <interfaceName></interfaceName>
+        <source filterSource="False">
+          <federateSource>Merlin #2 Simulator</federateSource>
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity.Platform</objectClassName>
+            <attributeName dataType="string" defaultValue="0">AnticollisionLightsOn</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity</objectClassName>
+            <attributeName dataType="string" defaultValue="0">Spatial</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity</objectClassName>
+            <attributeName dataType="string" defaultValue="0">Spatial</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft</objectClassName>
+            <attributeName dataType="string" defaultValue="0">UniqueID</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity</objectClassName>
+            <attributeName dataType="string" defaultValue="0">ForceIdentifier</attributeName>
+          </object>
+        </source>
+      </export>
+    </component>
+    <component componentID="476cf9b6-4914-4cca-b50b-4e461867d64f" componentType="proxy" componentName="Low side proxy">
+      <interface>
+        <interfaceName>F35 Federation</interfaceName>
+        <ipAddress netPrefix="24">3.3.3.1</ipAddress>
+      </interface>
+      <interface>
+        <interfaceName>OSP</interfaceName>
+        <ipAddress netPrefix="24">30.30.30.31</ipAddress>
+      </interface>
+      <interface>
+        <interfaceName>Management</interfaceName>
+        <ipAddress netPrefix="24">10.10.10.11</ipAddress>
+      </interface>
+      <host>
+        <hostName>NW11</hostName>
+      </host>
+      <federation>
+        <federationName>F35</federationName>
+        <federateName>CSS</federateName>
+        <interfaceName>F35 Federation</interfaceName>
+        <rti>
+          <crcAddress addressType="ipAddress">3.3.3.1</crcAddress>
+          <crcPortNumber>8989</crcPortNumber>
+          <hlaSpec>HLA Evolved</hlaSpec>
+          <fom />
+        </rti>
+      </federation>
+      <osp>
+        <path>exportPath</path>
+        <protocol>WebLVC_ZMQ</protocol>
+        <inputPort>30.30.30.192:8101</inputPort>
+      </osp>
+      <osp>
+        <path>importPath</path>
+        <protocol>WebLVC_ZMQ</protocol>
+        <outputPort>30.30.30.31:9000</outputPort>
+      </osp>
+      <export>
+        <interfaceName></interfaceName>
+        <source filterSource="False">
+          <federateSource>Merlin #2 Simulator</federateSource>
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity.Platform</objectClassName>
+            <attributeName dataType="string" defaultValue="0">AnticollisionLightsOn</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity</objectClassName>
+            <attributeName dataType="string" defaultValue="0">Spatial</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity</objectClassName>
+            <attributeName dataType="string" defaultValue="0">Spatial</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft</objectClassName>
+            <attributeName dataType="string" defaultValue="0">UniqueID</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity</objectClassName>
+            <attributeName dataType="string" defaultValue="0">ForceIdentifier</attributeName>
+          </object>
+        </source>
+      </export>
+    </component>
+    <component componentID="31bb410f-5e8f-4388-9655-e399429e3fa6" componentType="guard" componentName="Guard">
+      <interface>
+        <interfaceName>High side</interfaceName>
+        <ipAddress netPrefix="24">20.20.20.192</ipAddress>
+      </interface>
+      <interface>
+        <interfaceName>Low side</interfaceName>
+        <ipAddress netPrefix="">24</ipAddress>
+      </interface>
+      <interface>
+        <interfaceName>Management</interfaceName>
+        <ipAddress netPrefix="24">10.10.10.192</ipAddress>
+      </interface>
+      <host>
+        <hostName>Guard</hostName>
+      </host>
+      <osp>
+        <path>exportPath</path>
+        <protocol>WebLVC_ZMQ</protocol>
+        <inputPort>20.20.20.31:9000</inputPort>
+      </osp>
+      <osp>
+        <path>importPath</path>
+        <protocol>WebLVC_ZMQ</protocol>
+        <outputPort>20.20.20.192.8101</outputPort>
+      </osp>
+      <import>
+        <interfaceName>Low side</interfaceName>
+        <object>
+          <objectClassName>HLAobjectRoot.BaseEntity</objectClassName>
+          <attributeName dataType="string" defaultValue="0">EntityType</attributeName>
+        </object>
+        <object>
+          <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft</objectClassName>
+          <attributeName dataType="string" defaultValue="0">UniqueID</attributeName>
+        </object>
+        <object>
+          <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity</objectClassName>
+          <attributeName dataType="string" defaultValue="0">ForceIdentifier</attributeName>
+        </object>
+      </import>
+      <export>
+        <interfaceName>High side</interfaceName>
+        <source filterSource="False">
+          <federateSource>Merlin #2 Simulator</federateSource>
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity.Platform</objectClassName>
+            <attributeName dataType="string" defaultValue="0">AnticollisionLightsOn</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity</objectClassName>
+            <attributeName dataType="string" defaultValue="0">Spatial</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity</objectClassName>
+            <attributeName dataType="string" defaultValue="0">Spatial</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft</objectClassName>
+            <attributeName dataType="string" defaultValue="0">UniqueID</attributeName>
+          </object>
+        </source>
+        <source filterSource="False">
+          <federateSource />
+          <object>
+            <objectClassName>HLAobjectRoot.BaseEntity.PhysicalEntity</objectClassName>
+            <attributeName dataType="string" defaultValue="0">ForceIdentifier</attributeName>
+          </object>
+        </source>
+      </export>
+    </component>
+  </system>
+</Deploy>

@@ -72,64 +72,100 @@ namespace PitchDeploy
             Federates feds = new Federates();
 
             // List of federates in Export module
-            ModuleExport expModule = (ModuleExport)findModule(component.Modules, Enums.ModuleType.federation);
+            ModuleExport expModule = (ModuleExport)findModule(component.Modules, Enums.ModuleType.export);
             foreach (Source source in expModule.Sources)
                 feds.Federate.Add(source.FederateName);
 
             hpsdPolicy.Federates = feds;
             // =====================================================================================
 
-            // PolicyRules <----> Export module
-            PolicyRules rule = new PolicyRules();
-            int ruleNumber = 0;
+            // PolicyRules <----> Export/Import module
 
-            // Status message - session name = federateName
-            SessionStatusReleaseRule sess = new SessionStatusReleaseRule
+
+                PolicyRules rules = new PolicyRules();
+                int ruleNumber = 0;
+
+            if (component.ComponentName.ToUpper().Contains("HIGH"))
             {
-                Condition_SessionName = system.FederateName,
-                RuleName = ruleNumber++.ToString()
-            };
-            rule.SessionStatus.Add(sess);
+                // Status message - session name = federateName
+                SessionStatusReleaseRule sess = new SessionStatusReleaseRule
+                {
+                    Condition_SessionName = system.FederateName,
+                    RuleName = ruleNumber++.ToString()
+                };
+                rules.SessionStatus.Add(sess);
 
-            // Object update/create
-            foreach (Source source in expModule.Sources)
+                // Object update/create
+                foreach (Source source in expModule.Sources)
+                {
+
+                    string federateName = source.FederateName;
+                    string entityID = "";
+                    if (source.SourceType == Source.Type.Federate)
+                        entityID = "*";
+                    else
+                        entityID = source.EntityId;
+
+                    foreach (HlaObject hlaObj in source.Objects)
+                    {
+                        ObjectReleaseReplaceRule obj = new ObjectReleaseReplaceRule()
+                        {
+                            Condition_ProducingFederate = federateName,
+                            Condition_InstanceID = entityID,
+                            RuleName = ruleNumber++.ToString(),
+                            Condition_ObjectClass = hlaObj.ObjectClassName.NoHlaRoot()
+                        };
+                        foreach (HlaAttribute attrib in hlaObj.Attributes)
+                            obj.Release_Attribute.Add(attrib.AttributeName);
+                        rules.ObjectRelease.Add(obj);
+                    }
+
+                    foreach (HlaInteraction hlaInt in source.Interactions)
+                    {
+                        InteractionReleaseReplaceRule intr = new InteractionReleaseReplaceRule()
+                        {
+                            Condition_ProducingFederate = federateName,
+                            RuleName = ruleNumber++.ToString(),
+                            Condition_InteractionClass = hlaInt.InteractionClassName.NoHlaRoot()
+                        };
+                        foreach (HlaParameter para in hlaInt.Parameters)
+                            intr.Release_Parameter.Add(para.ParameterName);
+                        rules.InteractionRelease.Add(intr);
+                    }
+                }
+            }
+            else
             {
-                
-                string federateName = source.FederateName;
-                string entityID = "";
-                if (source.SourceType == Source.Type.Federate)
-                    entityID = "*";
-                else
-                    entityID = source.EntityId;
-
-                foreach(HlaObject hlaObj in source.Objects)
+                ModuleImport impModule = (ModuleImport)findModule(component.Modules, Enums.ModuleType.import);
+                foreach (HlaObject hlaObj in impModule.Objects)
                 {
                     ObjectReleaseReplaceRule obj = new ObjectReleaseReplaceRule()
                     {
-                        Condition_ProducingFederate = federateName,
-                        Condition_InstanceID = entityID,
+                        Condition_ProducingFederate = "*",
+                        Condition_InstanceID = "*",
                         RuleName = ruleNumber++.ToString(),
                         Condition_ObjectClass = hlaObj.ObjectClassName.NoHlaRoot()
                     };
                     foreach (HlaAttribute attrib in hlaObj.Attributes)
                         obj.Release_Attribute.Add(attrib.AttributeName);
-                    rule.ObjectRelease.Add(obj);
+                    rules.ObjectRelease.Add(obj);
                 }
 
-                foreach (HlaInteraction hlaInt in source.Interactions)
+                foreach (HlaInteraction hlaInt in impModule.Interactions)
                 {
                     InteractionReleaseReplaceRule intr = new InteractionReleaseReplaceRule()
                     {
-                        Condition_ProducingFederate = federateName,
+                        Condition_ProducingFederate = "*",
                         RuleName = ruleNumber++.ToString(),
                         Condition_InteractionClass = hlaInt.InteractionClassName.NoHlaRoot()
                     };
                     foreach (HlaParameter para in hlaInt.Parameters)
                         intr.Release_Parameter.Add(para.ParameterName);
-                    rule.InteractionRelease.Add(intr);
+                    rules.InteractionRelease.Add(intr);
                 }
             }
-            return rule.ToHPSD();
+            hpsdPolicy.PolicyRules = rules;
+            return hpsdPolicy.ToHPSD();
         }
 
         private static IModule findModule(List<IModule> modules, Enums.ModuleType moduleType)

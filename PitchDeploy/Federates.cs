@@ -9,11 +9,16 @@ namespace PitchDeploy
     {
         public List<string> Federate { get; set; }
 
-        public XElement ToHPSD()
+        public Federates()
         {
-            XElement hpsd = null;
+            Federate = new List<string> ();
+        }
+
+        public XElement ToHPSD(XNamespace ns)
+        {
+            XElement hpsd = new XElement(ns + "federates");
             foreach (string fed in Federate)
-                hpsd.Add(new XElement("federate", fed));
+                hpsd.Add(new XElement(ns + "federate", fed));
 
             return hpsd;
         }

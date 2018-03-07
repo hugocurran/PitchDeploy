@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hpsdPolicy xmlns="http://www.pitchtechnologies.com/schemas/hpsd081" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <policyIdentification>
+    <name>Typhoon A, MOB South</name>
+    <version>1.0</version>
+    <createdDate>06/03/2018</createdDate>
+    <modifiedDate>06/03/2018</modifiedDate>
+    <status></status>
+    <description>Initial Version</description>
+  </policyIdentification>
+  <fomInformation />
+  <federates>
+    <federate>F-35 Test Federate #1</federate>
+    <federate>Merlin #2 Simulator</federate>
+    <federate></federate>
+  </federates>
+  <policyRules>
+    <sessionStatusReleaseRule name="0">
+      <condition>
+        <sessionName>Typhoon A, MOB South</sessionName>
+      </condition>
+      <release />
+    </sessionStatusReleaseRule>
+    <objectReleaseReplaceRule name="1">
+      <condition>
+        <producingFederate>F-35 Test Federate #1</producingFederate>
+        <objectClass>BaseEntity</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release>
+        <attribute>
+          <name>EntityType</name>
+        </attribute>
+      </release>
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="2">
+      <condition>
+        <producingFederate>F-35 Test Federate #1</producingFederate>
+        <objectClass>BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release>
+        <attribute>
+          <name>UniqueID</name>
+        </attribute>
+      </release>
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="3">
+      <condition>
+        <producingFederate>F-35 Test Federate #1</producingFederate>
+        <objectClass>BaseEntity.PhysicalEntity</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release>
+        <attribute>
+          <name>ForceIdentifier</name>
+        </attribute>
+      </release>
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="4">
+      <condition>
+        <producingFederate>Merlin #2 Simulator</producingFederate>
+        <objectClass>BaseEntity.PhysicalEntity.Platform</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release>
+        <attribute>
+          <name>AnticollisionLightsOn</name>
+        </attribute>
+      </release>
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="5">
+      <condition>
+        <producingFederate></producingFederate>
+        <objectClass>BaseEntity</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release>
+        <attribute>
+          <name>Spatial</name>
+        </attribute>
+      </release>
+    </objectReleaseReplaceRule>
+  </policyRules>
+</hpsdPolicy>

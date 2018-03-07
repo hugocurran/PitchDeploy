@@ -22,14 +22,14 @@ namespace PitchDeploy.HpsdFilterModel
             PocPhone = pocPhone;
         }
 
-        public XElement ToHPSD()
+        public XElement ToHPSD(XNamespace ns)
         {
-            XElement hpsd = new XElement("poc",
-                new XElement("pocName", PocName),
-                new XElement("pocType", PocType),
-                new XElement("pocOrg", PocOrg),
-                new XElement("pocEmail", PocEmail),
-                new XElement("pocPhone", PocPhone)
+            XElement hpsd = new XElement(ns + "poc",
+                new XElement(ns + "pocName", PocName),
+                new XElement(ns + "pocType", PocType),
+                new XElement(ns + "pocOrg", PocOrg),
+                new XElement(ns + "pocEmail", PocEmail),
+                new XElement(ns + "pocPhone", PocPhone)
                 );
             return hpsd;
         }

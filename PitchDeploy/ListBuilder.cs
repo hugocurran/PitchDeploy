@@ -64,11 +64,12 @@ namespace PitchDeploy
                 sb.AppendFormat("{0}\\: ", obj.Key);
                 for(int i = 0; i < obj.Value.Count; i++)
                 {
-                    if (i < obj.Value.Count + 1)
+                    if (i < obj.Value.Count-1)
                         sb.AppendFormat("{0}, ", obj.Value[i]);
                     else
                         sb.AppendFormat("{0}", obj.Value[i]);
                 }
+                result.Add(sb.ToString());
             }
             return result.ToArray();
         }

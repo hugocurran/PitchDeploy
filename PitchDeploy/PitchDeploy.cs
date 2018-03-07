@@ -63,10 +63,6 @@ namespace PitchDeploy
             // Config
             File.WriteAllText(name + ".settings", extenderConfig);
             // Filter
-            hpsdPolicy.AddFirst(new XAttribute("xmlns", "http://www.pitchtechnologies.com/schemas/hpsd081"),
-                                new XAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"),
-                                new XAttribute("xsi:schemaLocation", "http://www.pitchtechnologies.com/schemas/hpsd081 HPSDpolicy081.xsd")
-                                );
             XDocument doc = new XDocument(hpsdPolicy);
             doc.Save(name + ".xml");
 

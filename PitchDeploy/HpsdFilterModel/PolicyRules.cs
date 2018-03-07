@@ -18,15 +18,16 @@ namespace PitchDeploy.HpsdFilterModel
             InteractionRelease = new List<InteractionReleaseReplaceRule>();
         }
 
-        public XElement ToHPSD()
+        public XElement ToHPSD(XNamespace ns)
         {
-            XElement hpsd = new XElement("policyRules");
+            XElement hpsd = new XElement(ns + "policyRules");
+
             foreach (var session in SessionStatus)
-                hpsd.Add(session.ToHPSD());
+                hpsd.Add(session.ToHPSD(ns));
             foreach (var obj in ObjectRelease)
-                hpsd.Add(obj.ToHPSD());
+                hpsd.Add(obj.ToHPSD(ns));
             foreach (var inter in InteractionRelease)
-                hpsd.Add(inter.ToHPSD());
+                hpsd.Add(inter.ToHPSD(ns));
             return hpsd;
         }
 
@@ -37,13 +38,13 @@ namespace PitchDeploy.HpsdFilterModel
         public string Condition_SessionName { get; set; }
         public string RuleName { get; set; }
 
-        public XElement ToHPSD()
+        public XElement ToHPSD(XNamespace ns)
         {
-            XElement hpsd = new XElement("sessionStatusReleaseRule",
+            XElement hpsd = new XElement(ns + "sessionStatusReleaseRule",
                 new XAttribute("name", RuleName),
-                new XElement("condition",
-                    new XElement("sessionName", Condition_SessionName)),
-                new XElement("release")
+                new XElement(ns + "condition",
+                    new XElement(ns + "sessionName", Condition_SessionName)),
+                new XElement(ns + "release")
                 );
             return hpsd;
         }
@@ -58,20 +59,25 @@ namespace PitchDeploy.HpsdFilterModel
         public List<string> Release_Attribute { get; set; }
         public string RuleName { get; set; }
 
-        public XElement ToHPSD()
+        public ObjectReleaseReplaceRule()
         {
-            XElement hpsd = new XElement("objectReleaseReplaceRule",
+            Release_Attribute = new List<string>();
+        }
+
+        public XElement ToHPSD(XNamespace ns)
+        {
+            XElement hpsd = new XElement(ns + "objectReleaseReplaceRule",
                 new XAttribute("name", RuleName),
-                new XElement("condition",
-                    new XElement("producingFederate", Condition_ProducingFederate),
-                    new XElement("objectClass", Condition_ObjectClass),
-                    new XElement("instanceID", Condition_InstanceID))
+                new XElement(ns + "condition",
+                    new XElement(ns + "producingFederate", Condition_ProducingFederate),
+                    new XElement(ns + "objectClass", Condition_ObjectClass),
+                    new XElement(ns + "instanceID", Condition_InstanceID))
                 );
-            XElement release = new XElement("release");
+            XElement release = new XElement(ns + "release");
             foreach (string rel in Release_Attribute)
-                release.Add(new XElement("attribute",
-                    new XElement("name", rel)));
-            hpsd.Element("objectReleaseReplaceRule").Add(release);
+                release.Add(new XElement(ns + "attribute",
+                    new XElement(ns + "name", rel)));
+            hpsd.Add(release);
             return hpsd;
         }
 
@@ -84,19 +90,19 @@ namespace PitchDeploy.HpsdFilterModel
         public List<string>Release_Parameter { get; set; }
         public string RuleName { get; set; }
 
-        public XElement ToHPSD()
+        public XElement ToHPSD(XNamespace ns)
         {
-            XElement hpsd = new XElement("interactionReleaseReplaceRule",
+            XElement hpsd = new XElement(ns + "interactionReleaseReplaceRule",
                 new XAttribute("name", RuleName),
-                new XElement("condition",
-                    new XElement("producingFederate", Condition_ProducingFederate),
-                    new XElement("interactionClass", Condition_InteractionClass))
+                new XElement(ns + "condition",
+                    new XElement(ns + "producingFederate", Condition_ProducingFederate),
+                    new XElement(ns + "interactionClass", Condition_InteractionClass))
                 );
-            XElement release = new XElement("release");
+            XElement release = new XElement(ns + "release");
             foreach (string rel in Release_Parameter)
-                release.Add(new XElement("parameter",
-                    new XElement("name", rel)));
-            hpsd.Element("interactionReleaseReplaceRule").Add(release);
+                release.Add(new XElement(ns + "parameter",
+                    new XElement(ns + "name", rel)));
+            hpsd.Element(ns + "interactionReleaseReplaceRule").Add(release);
             return hpsd;
         }
 

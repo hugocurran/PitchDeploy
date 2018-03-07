@@ -21,18 +21,18 @@ namespace PitchDeploy.HpsdFilterModel
             Poc = new List<POC>();
         }
 
-        public XElement ToHPSD()
+        public XElement ToHPSD(XNamespace ns)
         {
-            XElement hpsd = new XElement("policyIdentification",
-                new XElement("name", PolicyName),
-                new XElement("version", PolicyVersion),
-                new XElement("createdDate", CreatedDate.ToShortDateString()),
-                new XElement("modifiedDate", ModifiedDate.ToShortDateString()),
-                new XElement("status", Status),
-                new XElement("description", Description)
+            XElement hpsd = new XElement(ns + "policyIdentification",
+                new XElement(ns + "name", PolicyName),
+                new XElement(ns + "version", PolicyVersion),
+                new XElement(ns + "createdDate", CreatedDate.ToShortDateString()),
+                new XElement(ns + "modifiedDate", ModifiedDate.ToShortDateString()),
+                new XElement(ns + "status", Status),
+                new XElement(ns + "description", Description)
                 );
             foreach (POC poc in Poc)
-                hpsd.Element("policyIdentification").Add(poc.ToHPSD());
+                hpsd.Element(ns + "policyIdentification").Add(poc.ToHPSD(ns));
             return hpsd;
         }
     }

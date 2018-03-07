@@ -16,13 +16,13 @@ namespace PitchDeploy.HpsdFilterModel
             InstanceID = new List<InstanceId>();
         }
 
-        public XElement ToHPSD()
+        public XElement ToHPSD(XNamespace ns)
         {
-            XElement hpsd = new XElement("fomInformation");
+            XElement hpsd = new XElement(ns+"fomInformation");
             foreach (string fomModule in FomModule)
-                hpsd.Add(new XElement("fomModule", fomModule));
+                hpsd.Add(new XElement(ns+"fomModule", fomModule));
             foreach (var inst in InstanceID)
-                hpsd.Add(inst.ToHPSD());
+                hpsd.Add(inst.ToHPSD(ns));
             return hpsd;
         }
     }
@@ -33,13 +33,13 @@ namespace PitchDeploy.HpsdFilterModel
         public string Attribute_Name { get; set; }
         public string Attribute_Encoding { get; set; }
 
-        public XElement ToHPSD()
+        public XElement ToHPSD(XNamespace ns)
         {
-            XElement hpsd = new XElement("instanceIdAttribute",
-                new XElement("objectClass", ObjectClass),
-                    new XElement("attribute",
-                        new XElement("name", Attribute_Name),
-                        new XElement("encoding", Attribute_Encoding)
+            XElement hpsd = new XElement(ns + "instanceIdAttribute",
+                new XElement(ns + "objectClass", ObjectClass),
+                    new XElement(ns + "attribute",
+                        new XElement(ns + "name", Attribute_Name),
+                        new XElement(ns + "encoding", Attribute_Encoding)
                     )
                 );
             return hpsd;

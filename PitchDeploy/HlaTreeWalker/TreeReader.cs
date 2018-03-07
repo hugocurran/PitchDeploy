@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace PitchDeploy.HlaTreeWalker
@@ -11,12 +12,12 @@ namespace PitchDeploy.HlaTreeWalker
         /// </summary>
         /// <param name="dataFilename">File containing the object model description</param>
         /// <returns></returns>
-        public static HlaObjectNode CreateTree(string dataFilename)
+        public static HlaObjectNode CreateTree(StringReader file)
         {
             string line;
-            // Read the file line by line.  
-            System.IO.StreamReader file =
-                new System.IO.StreamReader(dataFilename);
+            //// Read the file line by line.  
+            //System.IO.StreamReader file =
+            //    new System.IO.StreamReader(dataFilename);
 
             HlaObjectNode HlaObjectRoot = new HlaObjectNode(null, "HLAobjectRoot.");
             //HlaObject HlaInteractionRoot = new HlaObject(null, "HLAinteractionRoot.");
