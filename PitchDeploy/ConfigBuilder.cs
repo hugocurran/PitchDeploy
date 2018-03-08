@@ -27,7 +27,6 @@ namespace PitchDeploy
             ModuleOsp[] osp = findModules(component.Modules);
 
             // Create an HlaObject tree to use when defining attribute lists
-            //MemoryStream ms = CreateStreamFromString(Properties.Resources.HLAfeatures);
             StringReader ms = new StringReader(Properties.Resources.HLAfeatures);
             HlaObjectNode hlaObjectTree = TreeReader.CreateTree(ms);
             

@@ -3,16 +3,78 @@
   <policyIdentification>
     <name>Typhoon A, MOB South</name>
     <version>1.0</version>
-    <createdDate>06/03/2018</createdDate>
-    <modifiedDate>06/03/2018</modifiedDate>
+    <createdDate>07/03/2018</createdDate>
+    <modifiedDate>07/03/2018</modifiedDate>
     <status></status>
     <description>Initial Version</description>
   </policyIdentification>
-  <fomInformation />
+  <fomInformation>
+    <instanceIdAttribute>
+      <objectClass>HLAobjectRoot.</objectClass>
+      <attribute>
+        <name>NETN_Aircraft</name>
+        <encoding>UUID</encoding>
+      </attribute>
+    </instanceIdAttribute>
+    <instanceIdAttribute>
+      <objectClass>HLAobjectRoot.BaseEntit</objectClass>
+      <attribute>
+        <name>NETN_AmphibiousVehicle</name>
+        <encoding>UUID</encoding>
+      </attribute>
+    </instanceIdAttribute>
+    <instanceIdAttribute>
+      <objectClass>HLAobjectRoot.BaseE</objectClass>
+      <attribute>
+        <name>NETN_GroundVehicle</name>
+        <encoding>UUID</encoding>
+      </attribute>
+    </instanceIdAttribute>
+    <instanceIdAttribute>
+      <objectClass>HLAobjectRoot.BaseEntity</objectClass>
+      <attribute>
+        <name>NETN_SubmersibleVehicle</name>
+        <encoding>UUID</encoding>
+      </attribute>
+    </instanceIdAttribute>
+    <instanceIdAttribute>
+      <objectClass>HLAobjectRoot.BaseEntity.</objectClass>
+      <attribute>
+        <name>NETN_MultiDomainPlatform</name>
+        <encoding>UUID</encoding>
+      </attribute>
+    </instanceIdAttribute>
+    <instanceIdAttribute>
+      <objectClass>HLAobjectRoot.Ba</objectClass>
+      <attribute>
+        <name>NETN_Spacecraft</name>
+        <encoding>UUID</encoding>
+      </attribute>
+    </instanceIdAttribute>
+    <instanceIdAttribute>
+      <objectClass>HLAobjectRoot.BaseE</objectClass>
+      <attribute>
+        <name>NETN_SurfaceVessel</name>
+        <encoding>UUID</encoding>
+      </attribute>
+    </instanceIdAttribute>
+    <instanceIdAttribute>
+      <objectClass>HLAobjectRo</objectClass>
+      <attribute>
+        <name>NETN_Human</name>
+        <encoding>UUID</encoding>
+      </attribute>
+    </instanceIdAttribute>
+    <instanceIdAttribute>
+      <objectClass>HLAobjectRoot.</objectClass>
+      <attribute>
+        <name>NETN_Munition</name>
+        <encoding>UUID</encoding>
+      </attribute>
+    </instanceIdAttribute>
+  </fomInformation>
   <federates>
-    <federate>F-35 Test Federate #1</federate>
-    <federate>Merlin #2 Simulator</federate>
-    <federate></federate>
+    <federate>Red CGF</federate>
   </federates>
   <policyRules>
     <sessionStatusReleaseRule name="0">
@@ -23,7 +85,7 @@
     </sessionStatusReleaseRule>
     <objectReleaseReplaceRule name="1">
       <condition>
-        <producingFederate>F-35 Test Federate #1</producingFederate>
+        <producingFederate>Red CGF</producingFederate>
         <objectClass>BaseEntity</objectClass>
         <instanceID>*</instanceID>
       </condition>
@@ -31,23 +93,26 @@
         <attribute>
           <name>EntityType</name>
         </attribute>
+        <attribute>
+          <name>EntityIdentifier</name>
+        </attribute>
+        <attribute>
+          <name>Spatial</name>
+        </attribute>
+        <attribute>
+          <name>IsPartOf</name>
+        </attribute>
+        <attribute>
+          <name>RelativeSpatial</name>
+        </attribute>
+        <attribute>
+          <name>EntityIdentifier</name>
+        </attribute>
       </release>
     </objectReleaseReplaceRule>
     <objectReleaseReplaceRule name="2">
       <condition>
-        <producingFederate>F-35 Test Federate #1</producingFederate>
-        <objectClass>BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft</objectClass>
-        <instanceID>*</instanceID>
-      </condition>
-      <release>
-        <attribute>
-          <name>UniqueID</name>
-        </attribute>
-      </release>
-    </objectReleaseReplaceRule>
-    <objectReleaseReplaceRule name="3">
-      <condition>
-        <producingFederate>F-35 Test Federate #1</producingFederate>
+        <producingFederate>Red CGF</producingFederate>
         <objectClass>BaseEntity.PhysicalEntity</objectClass>
         <instanceID>*</instanceID>
       </condition>
@@ -55,31 +120,248 @@
         <attribute>
           <name>ForceIdentifier</name>
         </attribute>
+        <attribute>
+          <name>Marking</name>
+        </attribute>
+        <attribute>
+          <name>ArticulatedParametersArray</name>
+        </attribute>
+        <attribute>
+          <name>DamageState</name>
+        </attribute>
+        <attribute>
+          <name>EngineSmokeOn</name>
+        </attribute>
+        <attribute>
+          <name>FlamesPresent</name>
+        </attribute>
+        <attribute>
+          <name>Immobilized</name>
+        </attribute>
+        <attribute>
+          <name>InfraredSignatureIndex</name>
+        </attribute>
+        <attribute>
+          <name>PowerPlantOn</name>
+        </attribute>
+        <attribute>
+          <name>PowerPlantOn</name>
+        </attribute>
+        <attribute>
+          <name>CamouflageType</name>
+        </attribute>
+        <attribute>
+          <name>IsConcealed</name>
+        </attribute>
+        <attribute>
+          <name>TentDeployed</name>
+        </attribute>
+        <attribute>
+          <name>Marking</name>
+        </attribute>
+      </release>
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="3">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <objectClass>BaseEntity.PhysicalEntity.Platform.GroundVehicle.NETN_GroundVehicle</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release>
+        <attribute>
+          <name>Callsign</name>
+        </attribute>
+        <attribute>
+          <name>EmbeddedUnitList</name>
+        </attribute>
+        <attribute>
+          <name>UniqueID</name>
+        </attribute>
       </release>
     </objectReleaseReplaceRule>
     <objectReleaseReplaceRule name="4">
       <condition>
-        <producingFederate>Merlin #2 Simulator</producingFederate>
+        <producingFederate>Red CGF</producingFederate>
         <objectClass>BaseEntity.PhysicalEntity.Platform</objectClass>
         <instanceID>*</instanceID>
       </condition>
       <release>
         <attribute>
-          <name>AnticollisionLightsOn</name>
+          <name>BrakeLightsOn</name>
+        </attribute>
+        <attribute>
+          <name>HeadLightsOn</name>
+        </attribute>
+        <attribute>
+          <name>InteriorLightsOn</name>
+        </attribute>
+        <attribute>
+          <name>InteriorLightsOn</name>
+        </attribute>
+        <attribute>
+          <name>LauncherRaised</name>
+        </attribute>
+        <attribute>
+          <name>LauncherRaised</name>
         </attribute>
       </release>
     </objectReleaseReplaceRule>
     <objectReleaseReplaceRule name="5">
       <condition>
-        <producingFederate></producingFederate>
-        <objectClass>BaseEntity</objectClass>
+        <producingFederate>Red CGF</producingFederate>
+        <objectClass>EmbeddedSystem.EmitterSystem</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release />
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="6">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <objectClass>EmbeddedSystem.EmitterSystem.NETN_EmitterSystem</objectClass>
         <instanceID>*</instanceID>
       </condition>
       <release>
         <attribute>
-          <name>Spatial</name>
+          <name>UniqueID</name>
+        </attribute>
+        <attribute>
+          <name>HostObjectUuid</name>
+        </attribute>
+        <attribute>
+          <name>HostObjectUuid</name>
         </attribute>
       </release>
     </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="7">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <objectClass>EmbeddedSystem.EmitterSystem.NETN_EmitterSystem</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release />
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="8">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <objectClass>BaseEntity.PhysicalEntity.Sensor</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release>
+        <attribute>
+          <name>AntennaRaised</name>
+        </attribute>
+        <attribute>
+          <name>AntennaRaised</name>
+        </attribute>
+      </release>
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="9">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <objectClass>BaseEntity.PhysicalEntity.Sensor</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release />
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="10">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <objectClass>EmbeddedSystem</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release>
+        <attribute>
+          <name>EntityIdentifier</name>
+        </attribute>
+        <attribute>
+          <name>HostObjectIdentifier</name>
+        </attribute>
+        <attribute>
+          <name>RelativePosition</name>
+        </attribute>
+        <attribute>
+          <name>RelativePosition</name>
+        </attribute>
+      </release>
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="11">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <objectClass>BaseEntity.PhysicalEntity.Munition.NETN_Munition</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release>
+        <attribute>
+          <name>UniqueID</name>
+        </attribute>
+        <attribute>
+          <name>UniqueID</name>
+        </attribute>
+      </release>
+    </objectReleaseReplaceRule>
+    <objectReleaseReplaceRule name="12">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <objectClass>BaseEntity.PhysicalEntity.Munition.NETN_Munition</objectClass>
+        <instanceID>*</instanceID>
+      </condition>
+      <release />
+    </objectReleaseReplaceRule>
+    <interactionReleaseReplaceRule name="13">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <interactionClass>HLAmanager.HLAfederate.HLAadjust</interactionClass>
+      </condition>
+      <release />
+    </interactionReleaseReplaceRule>
+    <interactionReleaseReplaceRule name="14">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <interactionClass>HLAmanager.HLAfederate.HLArequest</interactionClass>
+      </condition>
+      <release />
+    </interactionReleaseReplaceRule>
+    <interactionReleaseReplaceRule name="15">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <interactionClass>HLAmanager.HLAfederate.HLAreport</interactionClass>
+      </condition>
+      <release />
+    </interactionReleaseReplaceRule>
+    <interactionReleaseReplaceRule name="16">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <interactionClass>HLAmanager.HLAfederate.HLAservice</interactionClass>
+      </condition>
+      <release />
+    </interactionReleaseReplaceRule>
+    <interactionReleaseReplaceRule name="17">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <interactionClass>HLAmanager.HLAfederation.HLArequest</interactionClass>
+      </condition>
+      <release />
+    </interactionReleaseReplaceRule>
+    <interactionReleaseReplaceRule name="18">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <interactionClass>HLAmanager.HLAfederation.HLAreport</interactionClass>
+      </condition>
+      <release />
+    </interactionReleaseReplaceRule>
+    <interactionReleaseReplaceRule name="19">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <interactionClass>WeaponFire</interactionClass>
+      </condition>
+      <release />
+    </interactionReleaseReplaceRule>
+    <interactionReleaseReplaceRule name="20">
+      <condition>
+        <producingFederate>Red CGF</producingFederate>
+        <interactionClass>MunitionDetonation</interactionClass>
+      </condition>
+      <release />
+    </interactionReleaseReplaceRule>
   </policyRules>
 </hpsdPolicy>

@@ -2,7 +2,7 @@
   "profiles": {
     "PitchDeploy": {
       "commandName": "Project",
-      "commandLineArgs": "\"Typhoon A, MOB South - 1f156b4d-c3f7-439e-be01-4308b5856e8e.xml\" \"High proxy\"",
+      "commandLineArgs": "\"Typhoon A, MOB South - c47e336e-a8d1-41be-bd90-e0959d80196a.xml\" \"High proxy\"",
       "workingDirectory": "C:\\Users\\peter\\source\\repos\\PitchDeploy"
     }
   }

@@ -16,13 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="FPDL">
-      <HintPath>..\..\FPDL Toolkit\FPDL\bin\Debug\FPDL.dll</HintPath>
-    </Reference>
+    <Folder Include="HlaTreeWalker\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="HlaTreeWalker\" />
+    <Reference Include="FPDL">
+      <HintPath>..\..\FPDL Toolkit\FPDL\bin\Debug\FPDL.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

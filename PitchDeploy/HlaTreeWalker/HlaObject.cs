@@ -31,7 +31,7 @@ namespace PitchDeploy.HlaTreeWalker
             // If there are only 2 elements, the second may be an attribute
             if (s.Count() == 2)
             {
-                if (s[1] != "")
+                if (s[1] != "")     // The Split() above will give use an empty string eg HLAobjectRoot.
                 {
                     Attributes.Add(s[1]);
                     return;
@@ -41,7 +41,7 @@ namespace PitchDeploy.HlaTreeWalker
 
             // There are > 2 elements; s[1] is the next object name
             HlaObjectNode nextObject;
-            if ((nextObject = Objects.Find(x => x.Name == s[1])) != null)
+            if ((nextObject = Objects.Find(x => x.Name == s[1])) != null)   // Check if we have seen the object before
                 nextObject.Add(line.Substring(Name.Length + 1));
             else
                 Objects.Add(new HlaObjectNode(this, line.Substring(Name.Length + 1)));
@@ -91,11 +91,7 @@ namespace PitchDeploy.HlaTreeWalker
             // s[0] should be the root object name
             if (s[0] != hlaTreeRoot.Name)
                 throw new ApplicationException("ObjectClassName is not within the HlaTree");
-
-
-
             return attribs.ToArray();
-
         }
     }
 }

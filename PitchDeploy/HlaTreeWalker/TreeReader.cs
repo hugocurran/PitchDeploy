@@ -15,12 +15,9 @@ namespace PitchDeploy.HlaTreeWalker
         public static HlaObjectNode CreateTree(StringReader file)
         {
             string line;
-            //// Read the file line by line.  
-            //System.IO.StreamReader file =
-            //    new System.IO.StreamReader(dataFilename);
 
             HlaObjectNode HlaObjectRoot = new HlaObjectNode(null, "HLAobjectRoot.");
-            //HlaObject HlaInteractionRoot = new HlaObject(null, "HLAinteractionRoot.");
+            HlaObjectNode HlaInteractionRoot = new HlaObjectNode(null, "HLAinteractionRoot.");
 
             while ((line = file.ReadLine()) != null)
             {
@@ -31,7 +28,7 @@ namespace PitchDeploy.HlaTreeWalker
                         HlaObjectRoot.Add(line);
                         break;
                     case "HLAinteractionRoot":
-                        //HlaInteractionRoot.Add(line);
+                        HlaInteractionRoot.Add(line);
                         break;
                     default:
                         throw new ApplicationException("Corrupted datafile: Unknown root classname: " + s[0]);

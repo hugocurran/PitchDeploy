@@ -90,6 +90,11 @@ namespace PitchDeploy.HpsdFilterModel
         public List<string>Release_Parameter { get; set; }
         public string RuleName { get; set; }
 
+        public InteractionReleaseReplaceRule()
+        {
+            Release_Parameter = new List<string>();
+        }
+
         public XElement ToHPSD(XNamespace ns)
         {
             XElement hpsd = new XElement(ns + "interactionReleaseReplaceRule",
@@ -102,7 +107,7 @@ namespace PitchDeploy.HpsdFilterModel
             foreach (string rel in Release_Parameter)
                 release.Add(new XElement(ns + "parameter",
                     new XElement(ns + "name", rel)));
-            hpsd.Element(ns + "interactionReleaseReplaceRule").Add(release);
+            hpsd.Add(release);
             return hpsd;
         }
 

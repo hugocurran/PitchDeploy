@@ -7,15 +7,15 @@ A.host=1.1.1.1
 A.port=8989
 A.designator=
 A.federation=CSS
-A.type=gateway
+A.type=ltg
 A.name=TYP
 A.create=RPR_FOM_v2.0_1516-2010.xml
 A.evolvedFomModules=A.destroy=false
 A.disableRequest=false
 A.logicalTimeFactoryClassName=
 A.conveyProducingFederate=true
-A.objects=HLAobjectRoot.BaseEntity\: EntityType, Spatial; HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft\: UniqueID; HLAobjectRoot.BaseEntity.PhysicalEntity\: ForceIdentifier; HLAobjectRoot.BaseEntity.PhysicalEntity.Platform\: AnticollisionLightsOn
-A.interactions=
+A.objects=HLAobjectRoot.EmbeddedSystem.EmitterSystem\: EmitterFunctionCode, EmitterType, EmitterIndex, EventIdentifier, EntityIdentifier, HostObjectIdentifier, RelativePosition; HLAobjectRoot.EmbeddedSystem.EmitterSystem.NETN_EmitterSystem\: UniqueID, HostObjectUuid, EmitterFunctionCode, EmitterType, EmitterIndex, EventIdentifier, EntityIdentifier, HostObjectIdentifier, RelativePosition; HLAobjectRoot.BaseEntity.PhysicalEntity.Sensor\: AntennaRaised, BlackoutLightsOn, LightsOn, InteriorLightsOn, MissionKill, AcousticSignatureIndex, AlternateEntityType, ArticulatedParametersArray, CamouflageType, DamageState, EngineSmokeOn, FirePowerDisabled, FlamesPresent, ForceIdentifier, HasAmmunitionSupplyCap, HasFuelSupplyCap, HasRecoveryCap, HasRepairCap, Immobilized, InfraredSignatureIndex, IsConcealed, LiveEntityMeasuredSpeed, Marking, PowerPlantOn, PropulsionSystemsData, RadarCrossSectionSignatureIndex, SmokePlumePresent, TentDeployed, TrailingEffectsCode, VectoringNozzleSystemData, EntityType, EntityIdentifier, IsPartOf, Spatial, RelativeSpatial; HLAobjectRoot.BaseEntity.PhysicalEntity.Munition.NETN_Munition\: UniqueID, LauncherFlashPresent, AcousticSignatureIndex, AlternateEntityType, ArticulatedParametersArray, CamouflageType, DamageState, EngineSmokeOn, FirePowerDisabled, FlamesPresent, ForceIdentifier, HasAmmunitionSupplyCap, HasFuelSupplyCap, HasRecoveryCap, HasRepairCap, Immobilized, InfraredSignatureIndex, IsConcealed, LiveEntityMeasuredSpeed, Marking, PowerPlantOn, PropulsionSystemsData, RadarCrossSectionSignatureIndex, SmokePlumePresent, TentDeployed, TrailingEffectsCode, VectoringNozzleSystemData, EntityType, EntityIdentifier, IsPartOf, Spatial, RelativeSpatial; HLAobjectRoot.BaseEntity\: EntityType, EntityIdentifier, Spatial, IsPartOf, RelativeSpatial, EntityIdentifier; HLAobjectRoot.BaseEntity.PhysicalEntity\: ForceIdentifier, Marking, ArticulatedParametersArray, DamageState, EngineSmokeOn, FlamesPresent, Immobilized, InfraredSignatureIndex, PowerPlantOn, PowerPlantOn, CamouflageType, IsConcealed, TentDeployed, Marking; HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.GroundVehicle.NETN_GroundVehicle\: Callsign, EmbeddedUnitList, UniqueID; HLAobjectRoot.BaseEntity.PhysicalEntity.Platform\: BrakeLightsOn, HeadLightsOn, InteriorLightsOn, InteriorLightsOn, LauncherRaised, LauncherRaised; HLAobjectRoot.EmbeddedSystem\: EntityIdentifier, HostObjectIdentifier, RelativePosition, RelativePosition
+A.interactions=HLAinteractionRoot.HLAmanager.HLAfederate.HLAadjust; HLAinteractionRoot.HLAmanager.HLAfederate.HLArequest; HLAinteractionRoot.HLAmanager.HLAfederate.HLAreport; HLAinteractionRoot.HLAmanager.HLAfederate.HLAservice; HLAinteractionRoot.HLAmanager.HLAfederation.HLArequest; HLAinteractionRoot.HLAmanager.HLAfederation.HLAreport; HLAinteractionRoot.WeaponFire; HLAinteractionRoot.MunitionDetonation
 
 # B side settings (HPSD side)
 B.side_name=High proxy
@@ -26,7 +26,7 @@ B.host=0.0.0.0
 B.port=0
 B.designator=60.60.60.95\:9001,60.60.60.94\:8100;DEBUG;CONNECT_TIMEOUT\=10;HEARTBEAT\=5
 B.federation=High proxy
-B.type=gateway
+B.type=ltg
 B.name=TYP
 B.create=RPR_FOM_v2.0_1516-2010.xml
 B.evolvedFomModules=B.destroy=false
