@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace PitchDeploy.HpsdFilterModel
@@ -23,11 +24,13 @@ namespace PitchDeploy.HpsdFilterModel
 
         public XElement ToHPSD(XNamespace ns)
         {
+            string[] d1 = XmlConvert.ToString(CreatedDate, XmlDateTimeSerializationMode.Utc).Split('T');
+            string[] d2 = XmlConvert.ToString(ModifiedDate, XmlDateTimeSerializationMode.Utc).Split('T');
             XElement hpsd = new XElement(ns + "policyIdentification",
                 new XElement(ns + "name", PolicyName),
                 new XElement(ns + "version", PolicyVersion),
-                new XElement(ns + "createdDate", CreatedDate.ToShortDateString()),
-                new XElement(ns + "modifiedDate", ModifiedDate.ToShortDateString()),
+                new XElement(ns + "createdDate", d1[0]),
+                new XElement(ns + "modifiedDate", d2[0]),
                 new XElement(ns + "status", Status),
                 new XElement(ns + "description", Description)
                 );

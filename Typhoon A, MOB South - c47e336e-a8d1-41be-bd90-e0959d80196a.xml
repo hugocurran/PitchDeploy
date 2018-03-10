@@ -194,43 +194,43 @@
 					<value>RPR_FOM_v2.0_1516-2010.xml</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.AmphibiousVehicle.NETN_AmphibiousVehicle</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.AmphibiousVehicle.NETN_AmphibiousVehicle.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.GroundVehicle.NETN_GroundVehicle</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.GroundVehicle.NETN_GroundVehicle.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.SubmersibleVessel.NETN_SubmersibleVehicle</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.SubmersibleVessel.NETN_SubmersibleVehicle.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.MultiDomainPlatform.NETN_MultiDomainPlatform</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.MultiDomainPlatform.NETN_MultiDomainPlatform.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Spacecraft.NETN_Spacecraft</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Spacecraft.NETN_Spacecraft.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.SurfaceVessel.NETN_SurfaceVessel</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.SurfaceVessel.NETN_SurfaceVessel.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Lifeform.Human.NETN_Human</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Lifeform.Human.NETN_Human.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>insanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Lifeform.NonHuman.NETN_NonHuman</name>
+					<name>insanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Lifeform.NonHuman.NETN_NonHuman.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Munition.NETN_Munition</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Munition.NETN_Munition.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 			</extension>
@@ -409,43 +409,43 @@
 					<value>RPR_FOM_v2.0_1516-2010.xml</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Aircraft.NETN_Aircraft.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.AmphibiousVehicle.NETN_AmphibiousVehicle</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.AmphibiousVehicle.NETN_AmphibiousVehicle.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.GroundVehicle.NETN_GroundVehicle</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.GroundVehicle.NETN_GroundVehicle.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.SubmersibleVessel.NETN_SubmersibleVehicle</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.SubmersibleVessel.NETN_SubmersibleVehicle.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.MultiDomainPlatform.NETN_MultiDomainPlatform</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.MultiDomainPlatform.NETN_MultiDomainPlatform.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Spacecraft.NETN_Spacecraft</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.Spacecraft.NETN_Spacecraft.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.SurfaceVessel.NETN_SurfaceVessel</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Platform.SurfaceVessel.NETN_SurfaceVessel.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Lifeform.Human.NETN_Human</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Lifeform.Human.NETN_Human.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>insanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Lifeform.NonHuman.NETN_NonHuman</name>
+					<name>insanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Lifeform.NonHuman.NETN_NonHuman.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 				<parameter>
-					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Munition.NETN_Munition</name>
+					<name>instanceIdAttribute:HLAobjectRoot.BaseEntity.PhysicalEntity.Munition.NETN_Munition.UniqueID</name>
 					<value>UUID</value>
 				</parameter>
 			</extension>

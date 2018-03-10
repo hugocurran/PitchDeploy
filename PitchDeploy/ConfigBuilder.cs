@@ -78,12 +78,12 @@ namespace PitchDeploy
             sb.AppendLine("A.name=" + federation.FederateName);
             sb.AppendLine("A.create=" + extension.Parameters["create"]);
             sb.Append("A.evolvedFomModules=");
-            for (int i = 0; i < federation.RTI.FomFile.Count; i++)
+            for (int i = 0; i < federation.RTI.FomUri.Count; i++)
             {
-                if (i == federation.RTI.FomFile.Count-1)
-                    sb.AppendFormat("{0}\n", federation.RTI.FomFile[i]);
+                if (i == federation.RTI.FomUri.Count-1)
+                    sb.AppendFormat("{0}\n", federation.RTI.FomUri[i]);
                 else
-                    sb.AppendFormat("{0};", federation.RTI.FomFile[i]);
+                    sb.AppendFormat("{0};", federation.RTI.FomUri[i]);
             }
             sb.AppendLine("A.destroy=false");
             sb.AppendLine("A.disableRequest=false");
@@ -109,6 +109,8 @@ namespace PitchDeploy
                     string.Join("; ", ListBuilder.InteractionList(export, hlaObjectTree)) :
                     string.Join("; ", ListBuilder.InteractionList(import, hlaObjectTree));
             sb.AppendLine("A.interactions=" + result);
+            sb.AppendLine("A.filter=se.pitch.ral.extender.hpsd.Hpsd");
+            sb.AppendLine("A.filter.policy=" + component.ComponentName + ".xml");
             sb.AppendLine();
 
             // B Side -- Always connected to OSP

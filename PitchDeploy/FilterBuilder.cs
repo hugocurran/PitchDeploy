@@ -1,8 +1,10 @@
 ﻿using FPDL.Common;
 using FPDL.Deploy;
+using PitchDeploy.HlaTreeWalker;
 using PitchDeploy.HpsdFilterModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -27,7 +29,7 @@ namespace PitchDeploy
                 PolicyVersion = ConfigMgmt.VersionToString(deploy.ConfigMgmt.CurrentVersion),
                 CreatedDate = deploy.ConfigMgmt.Created.date,
                 ModifiedDate = deploy.ConfigMgmt.Changed[deploy.ConfigMgmt.Changed.Count - 1].date,
-                Status = "",
+                Status = deploy.ConfigMgmt.DocReference.ToString(),
                 Description = deploy.ConfigMgmt.Description
             }; // No POC information
 
@@ -54,7 +56,7 @@ namespace PitchDeploy
                 if (sa1[0] == "instanceIdAttribute")
                 {
                     string attribName = sa1[1].Split('.').Last();
-                    string objclass = sa1[1].Substring(0, attribName.Length + 1);  // trailing '.'
+                    string objclass = sa1[1].Substring(0, sa1[1].Length - (attribName.Length + 1));  // trailing '.'
                     string encoding = p.Value;
                     InstanceId instId = new InstanceId
                     {
@@ -81,8 +83,12 @@ namespace PitchDeploy
 
             // PolicyRules <----> Export/Import module
 
+            // Hack
+            // Create an HlaObject tree to use when defining attribute lists
+            StringReader ms = new StringReader(Properties.Resources.HLAfeatures);
+            HlaObjectNode hlaObjectTree = TreeReader.CreateTree(ms);
 
-                PolicyRules rules = new PolicyRules();
+            PolicyRules rules = new PolicyRules();
                 int ruleNumber = 0;
 
             if (component.ComponentName.ToUpper().Contains("HIGH"))
@@ -115,9 +121,21 @@ namespace PitchDeploy
                             RuleName = ruleNumber++.ToString(),
                             Condition_ObjectClass = hlaObj.ObjectClassName.NoHlaRoot()
                         };
-                        foreach (HlaAttribute attrib in hlaObj.Attributes)
-                            obj.Release_Attribute.Add(attrib.AttributeName);
-                        rules.ObjectRelease.Add(obj);
+                        //  Hack
+                        if (hlaObj.Attributes.Count == 0)
+                        {
+                            List<string> theworks = TreeReader.FindAttributes(hlaObjectTree, hlaObj.ObjectClassName);
+                            foreach (string attrib in theworks)
+                                obj.Release_Attribute.Add(attrib);
+                            rules.ObjectRelease.Add(obj);
+                        }
+                        else
+                        // Hack
+                        {
+                            foreach (HlaAttribute attrib in hlaObj.Attributes)
+                                obj.Release_Attribute.Add(attrib.AttributeName);
+                            rules.ObjectRelease.Add(obj);
+                        }
                     }
 
                     foreach (HlaInteraction hlaInt in source.Interactions)

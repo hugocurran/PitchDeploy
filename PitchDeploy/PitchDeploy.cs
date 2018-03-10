@@ -6,6 +6,9 @@ using System.Runtime.CompilerServices;
 using FPDL;
 using System.Xml.Linq;
 using System.IO;
+using PitchDeploy.HlaTreeWalker;
+using System.Xml;
+using System.Text;
 
 [assembly: InternalsVisibleTo("Tests")]
 
@@ -13,11 +16,12 @@ namespace PitchDeploy
 {
     class PitchDeploy
     {
-        
 
         // Expect deploy file name on the command line
         static void Main(string[] args)
         {
+            // Create an HlaObject tree to use when defining attribute lists
+
             if ((args.Count() != 2) || (args.Count() > 2))
             {
                 Console.WriteLine("Usage: PitchDeploy deployfile.xml componentName");
@@ -62,10 +66,17 @@ namespace PitchDeploy
             // Output the two files, using the provided name
             // Config
             File.WriteAllText(name + ".settings", extenderConfig);
-            // Filter
-            XDocument doc = new XDocument(hpsdPolicy);
-            doc.Save(name + ".xml");
 
+            // Filter
+            // It seems that Pitch are using a flaky (non-standards compliant) xml parser.  Need to suppress the BOM
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Encoding = new UTF8Encoding(false); // The false means, do not emit the BOM.
+            using (XmlWriter w = XmlWriter.Create(name + ".xml", settings))
+            {
+                XDocument doc = new XDocument(hpsdPolicy);
+                doc.Save(w);
+            }
+            
             Console.WriteLine("Files generated and saved to CWD");
         }
     }
