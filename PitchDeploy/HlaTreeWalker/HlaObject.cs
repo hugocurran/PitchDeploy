@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PitchDeploy.HlaTreeWalker
 {
+    /// <summary>
+    /// Class that defines a linked list of object nodes ( HLAobjectRoot -> BaseEntity -> PhysicalEntity -> Aircraft) along with the attribs/params for each node
+    /// </summary>
     public class HlaObjectNode
     {
         public string Name { get; set; }
@@ -31,7 +34,7 @@ namespace PitchDeploy.HlaTreeWalker
             // If there are only 2 elements, the second may be an attribute
             if (s.Count() == 2)
             {
-                if (s[1] != "")     // The Split() above will give use an empty string eg HLAobjectRoot.
+                if (s[1] != "")     // The Split() above will give use an empty string eg HLAobjectRoot. is [HLAobjectRoot] [] or a populated string
                 {
                     Attributes.Add(s[1]);
                     return;
@@ -76,22 +79,6 @@ namespace PitchDeploy.HlaTreeWalker
                 nextObject.Add(line.Substring(Name.Length + 1));
             else
                 Objects.Add(new HlaObjectNode(this, line.Substring(Name.Length + 1)));
-        }
-
-        /// <summary>
-        /// For a given ObjectClassName find all of the attributes
-        /// </summary>
-        /// <returns></returns>
-        public string[] FindAttributes(HlaObjectNode hlaTreeRoot, string objectClassName)
-        {
-            List<string> attribs = new List<string>();
-
-            // Walk down the tree from the root and find all attributes
-            string[] s = objectClassName.Split('.');
-            // s[0] should be the root object name
-            if (s[0] != hlaTreeRoot.Name)
-                throw new ApplicationException("ObjectClassName is not within the HlaTree");
-            return attribs.ToArray();
         }
     }
 }

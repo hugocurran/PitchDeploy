@@ -7,10 +7,13 @@ namespace PitchDeploy.HlaTreeWalker
 {
     public static class TreeReader
     {
+        // Read in a (simplified) list of objects/interactions derived from the FOM
+        // Structure the data so that it is readily retrievable
+
         /// <summary>
         /// Create an HlaObject tree
         /// </summary>
-        /// <param name="dataFilename">File containing the object model description</param>
+        /// <param name="file">File containing the object model description</param>
         /// <returns></returns>
         public static HlaObjectNode CreateTree(StringReader file)
         {
@@ -52,7 +55,7 @@ namespace PitchDeploy.HlaTreeWalker
             string[] s = objectClassName.Split('.');
             // s[0] should be the root object name
             if (s[0] != hlaTreeRoot.Name)
-                throw new ApplicationException("ObjectClassName is not within the HlaTree");
+                throw new ApplicationException("ObjectClassName is not within the HlaTree: " + s[0]);
 
             HlaObjectNode currentNode = hlaTreeRoot;
             for(int i = 1; i < s.Length; i++)   // start at 1 to skip root

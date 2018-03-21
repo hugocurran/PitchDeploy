@@ -78,12 +78,12 @@ namespace PitchDeploy
             sb.AppendLine("A.name=" + federation.FederateName);
             sb.AppendLine("A.create=" + extension.Parameters["create"]);
             sb.Append("A.evolvedFomModules=");
-            for (int i = 0; i < federation.RTI.FomUri.Count; i++)
+            for (int i = 0; i < federation.RTI.FomFile.Count; i++)
             {
-                if (i == federation.RTI.FomUri.Count-1)
-                    sb.AppendFormat("{0}\n", federation.RTI.FomUri[i]);
+                if (i == federation.RTI.FomFile.Count-1)
+                    sb.AppendFormat("{0}\n", federation.RTI.FomFile[i]);
                 else
-                    sb.AppendFormat("{0};", federation.RTI.FomUri[i]);
+                    sb.AppendFormat("{0};", federation.RTI.FomFile[i]);
             }
             sb.AppendLine("A.destroy=false");
             sb.AppendLine("A.disableRequest=false");
@@ -91,15 +91,6 @@ namespace PitchDeploy
             sb.AppendLine("A.conveyProducingFederate=true");
 
             // If this is a High proxy then this is the Export Policy list, otherwise the Import Policy
-            //string[] foo;
-            //if (component.ComponentName.ToUpper().Contains("HIGH"))
-            //    foo = ListBuilder.ObjectList(export, hlaObjectTree);
-            //else
-            //    foo = ListBuilder.ObjectList(import, hlaObjectTree);
-
-            //string result = String.Join("; ", foo);
-
-
             string result = (component.ComponentName.ToUpper().Contains("HIGH")) ?
                     string.Join("; ", ListBuilder.ObjectList(export, hlaObjectTree)) :
                     string.Join("; ", ListBuilder.ObjectList(import, hlaObjectTree));
@@ -155,6 +146,7 @@ namespace PitchDeploy
         }
 
         // Hackity-hack-hack
+        // See notes on deriving this value in the Pitch Pattern Notes
         private static string getDesignator(ModuleOsp[] modules, Component component)
         {
             StringBuilder sb = new StringBuilder();
@@ -191,6 +183,7 @@ namespace PitchDeploy
             return String.Format("{0},{1}", send, receive);
         }
 
+        // find a single module
         private static IModule findModule(List<IModule> modules, Enums.ModuleType moduleType)
         {
             foreach (var module in modules)
@@ -201,6 +194,7 @@ namespace PitchDeploy
             return null;
         }
 
+        // find multiple instances of a module
         private static ModuleOsp[] findModules(List<IModule> modules)
         {
             List<ModuleOsp> mods = new List<ModuleOsp>();

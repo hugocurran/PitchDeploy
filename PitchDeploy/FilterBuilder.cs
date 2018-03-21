@@ -104,7 +104,6 @@ namespace PitchDeploy
                 // Object update/create
                 foreach (Source source in expModule.Sources)
                 {
-
                     string federateName = source.FederateName;
                     string entityID = "";
                     if (source.SourceType == Source.Type.Federate)
@@ -121,7 +120,7 @@ namespace PitchDeploy
                             RuleName = ruleNumber++.ToString(),
                             Condition_ObjectClass = hlaObj.ObjectClassName.NoHlaRoot()
                         };
-                        //  Hack
+                        //  Hack if no attribs listed add all attribs from the TreeReader
                         if (hlaObj.Attributes.Count == 0)
                         {
                             List<string> theworks = TreeReader.FindAttributes(hlaObjectTree, hlaObj.ObjectClassName);
@@ -130,10 +129,12 @@ namespace PitchDeploy
                             rules.ObjectRelease.Add(obj);
                         }
                         else
-                        // Hack
+                        // Hack - read attributes from the object and add them; de-duplicate
                         {
+                            List<string> temp = new List<string>();
                             foreach (HlaAttribute attrib in hlaObj.Attributes)
-                                obj.Release_Attribute.Add(attrib.AttributeName);
+                                temp.Add(attrib.AttributeName);
+                            obj.Release_Attribute = temp.Distinct().ToList();
                             rules.ObjectRelease.Add(obj);
                         }
                     }
@@ -146,8 +147,10 @@ namespace PitchDeploy
                             RuleName = ruleNumber++.ToString(),
                             Condition_InteractionClass = hlaInt.InteractionClassName.NoHlaRoot()
                         };
+                        List<string> temp = new List<string>();
                         foreach (HlaParameter para in hlaInt.Parameters)
-                            intr.Release_Parameter.Add(para.ParameterName);
+                            temp.Add(para.ParameterName);
+                        intr.Release_Parameter = temp.Distinct().ToList();
                         rules.InteractionRelease.Add(intr);
                     }
                 }
@@ -164,8 +167,10 @@ namespace PitchDeploy
                         RuleName = ruleNumber++.ToString(),
                         Condition_ObjectClass = hlaObj.ObjectClassName.NoHlaRoot()
                     };
+                    List<string> temp = new List<string>();
                     foreach (HlaAttribute attrib in hlaObj.Attributes)
-                        obj.Release_Attribute.Add(attrib.AttributeName);
+                        temp.Add(attrib.AttributeName);
+                    obj.Release_Attribute = temp.Distinct().ToList();
                     rules.ObjectRelease.Add(obj);
                 }
 
@@ -177,8 +182,10 @@ namespace PitchDeploy
                         RuleName = ruleNumber++.ToString(),
                         Condition_InteractionClass = hlaInt.InteractionClassName.NoHlaRoot()
                     };
+                    List<string> temp = new List<string>();
                     foreach (HlaParameter para in hlaInt.Parameters)
-                        intr.Release_Parameter.Add(para.ParameterName);
+                        temp.Add(para.ParameterName);
+                    intr.Release_Parameter = temp.Distinct().ToList();
                     rules.InteractionRelease.Add(intr);
                 }
             }
