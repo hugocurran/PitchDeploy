@@ -4,26 +4,6 @@ using System.Text;
 
 namespace PitchDeploy
 {
-    public class HpsdFilter
-    {
-        // Identification
-
-
-        // FOM data
-
-
-        public HpsdFilter()
-        { }
-
-
-
-
-
-
-
-
-    }
-
     public class POC
     {
         public string PocName { get; private set; }
